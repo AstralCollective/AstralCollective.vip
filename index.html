@@ -1,100 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astral Collective</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        /* Reset and basic styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0c0c1a, #1a1a2e);
-            color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        header {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            display: flex;
-            justify-content: flex-end;
-        }
-        header a {
-            color: #f5f5f5;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 10px 20px;
-            border: 1px solid #f5f5f5;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        header a:hover {
-            background: #f5f5f5;
-            color: #0c0c1a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astral Collective</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+    /* Reset and basic styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #000000, #6a0dad);
+        color: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        overflow: hidden;
+    }
 
-        /* Main content */
-        main {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .established {
-            font-size: 0.85rem;
-            color: #a0a0a0;
-        }
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: 1.2;
-            background: linear-gradient(90deg, #ffcc33, #ff3366);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-        @keyframes glow {
-            0% { filter: blur(0px); }
-            50% { filter: blur(1px); }
-            100% { filter: blur(0px); }
-        }
-        p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            color: #c0c0c0;
-        }
+    /* Header */
+    header {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+    header a, #musicBtn {
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: 1px solid #f5f5f5;
+        text-decoration: none;
+        color: #f5f5f5;
+        backdrop-filter: blur(10px);
+        background: rgba(255,255,255,0.05);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    header a:hover, #musicBtn:hover {
+        background: #f5f5f5;
+        color: #0c0c1a;
+    }
+    #musicBtn {
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
 
-        /* Footer */
-        footer {
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.9rem;
-            color: #777;
-        }
-    </style>
+    /* Main content */
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        z-index: 1;
+    }
+    .established {
+        font-size: 0.85rem;
+        color: #a0a0a0;
+    }
+    h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1.2;
+        background: linear-gradient(90deg, #9b59b6, #e74c3c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: glow 3s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+        0% { filter: blur(0px); }
+        50% { filter: blur(1px); }
+        100% { filter: blur(0px); }
+    }
+    p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        color: #c0c0c0;
+    }
+
+    /* Footer */
+    footer {
+        position: absolute;
+        bottom: 20px;
+        font-size: 0.9rem;
+        color: #777;
+    }
+
+    /* Contact Modal */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 10;
+    }
+    .modal.active {
+        visibility: visible;
+        opacity: 1;
+    }
+    .modal-content {
+        background: #1a1a2e;
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 400px;
+        width: 90%;
+        text-align: left;
+        color: #f5f5f5;
+        position: relative;
+    }
+    .modal-content h2 {
+        margin-bottom: 20px;
+    }
+    .modal-content input, .modal-content textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+    }
+    .modal-content button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        background: #9b59b6;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .modal-content button:hover {
+        background: #e74c3c;
+    }
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #f5f5f5;
+    }
+</style>
 </head>
 <body>
-    <header>
-        <a href="mailto:contact@astralcollective.vip">Contact</a>
-    </header>
-    <main>
-        <div class="established">Established 2025 • Chicago, IL</div>
-        <h1>Independent record label & distributor</h1>
-        <p>Astral Collective identifies hidden potential in music, transforming creative ideas into opportunities for artists and brands.</p>
-    </main>
-    <footer>
-        © 2025 Astral Collective LLC.
-    </footer>
+
+<header>
+    <button id="musicBtn">🎵 Music</button>
+    <a id="contactBtn">Contact</a>
+</header>
+
+<main>
+    <div class="established">Established 2025</div>
+    <h1>Transforming creative sounds into opportunities</h1>
+    <p>Astral Collective discovers musical talent and builds pathways for artists and brands to shine in new ways.</p>
+</main>
+
+<footer>
+    © 2025 Astral Collective LLC.
+</footer>
+
+<!-- Contact Modal -->
+<div class="modal" id="contactModal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+<!-- Background Audio -->
+<audio id="bgAudio" loop>
+    <source src="your-audio-file.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // Contact modal toggle
+    const contactBtn = document.getElementById('contactBtn');
+    const contactModal = document.getElementById('contactModal');
+    const closeModal = document.getElementById('closeModal');
+
+    contactBtn.addEventListener('click', () => {
+        contactModal.classList.add('active');
+    });
+
+    closeModal.addEventListener('click', () => {
+        contactModal.classList.remove('active');
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === contactModal) {
+            contactModal.classList.remove('active');
+        }
+    });
+
+    // Music toggle
+    const musicBtn = document.getElementById('musicBtn');
+    const bgAudio = document.getElementById('bgAudio');
+
+    musicBtn.addEventListener('click', () => {
+        if(bgAudio.paused){
+            bgAudio.play();
+            musicBtn.textContent = '🔊 Music On';
+        } else {
+            bgAudio.pause();
+            musicBtn.textContent = '🎵 Music';
+        }
+    });
+
+    // Optional: handle form submit
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        alert('Thank you! Your message has been sent.');
+        contactModal.classList.remove('active');
+        this.reset();
+    });
+</script>
+
 </body>
 </html>
