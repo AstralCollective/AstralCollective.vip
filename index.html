@@ -14,93 +14,171 @@
     }
     body {
         font-family: 'Inter', sans-serif;
-        background: linear-gradient(135deg, #000000, #6a0dad);
+        /* Updated gradient for a darker, deeper vibe */
+        background: linear-gradient(135deg, #0c0c1a, #3a0d6d); 
         color: #f5f5f5;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+        min-height: 100vh; /* Use min-height to allow scrolling */
         text-align: center;
-        overflow: hidden;
+        overflow-x: hidden;
+        padding-top: 100px; /* Space for the fixed header */
+        transition: background-color 0.5s ease;
     }
 
-    /* Header */
+    /* Header (Fixed) */
     header {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        right: 20px;
+        position: fixed; /* Keep it at the top */
+        top: 0;
+        left: 0;
+        right: 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
+        padding: 15px 40px;
+        background: rgba(12, 12, 26, 0.9); /* Dark semi-transparent background */
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        transition: transform 0.3s ease;
     }
-    header a, #musicBtn {
+    .logo img {
+        height: 40px; /* Adjust as needed */
+        transition: transform 0.3s ease;
+    }
+    header a, #contactBtn {
         font-weight: 600;
         padding: 10px 20px;
         border-radius: 10px;
-        border: 1px solid #f5f5f5;
+        border: 1px solid #9b59b6; /* Purple border */
         text-decoration: none;
         color: #f5f5f5;
-        backdrop-filter: blur(10px);
-        background: rgba(255,255,255,0.05);
+        background: rgba(155, 89, 182, 0.1);
         cursor: pointer;
         transition: all 0.3s ease;
     }
-    header a:hover, #musicBtn:hover {
-        background: #f5f5f5;
-        color: #0c0c1a;
-    }
-    #musicBtn {
-        animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
+    header a:hover, #contactBtn:hover {
+        background: #9b59b6;
+        color: #fff;
+        transform: translateY(-2px);
     }
 
-    /* Main content */
-    main {
+    /* Main content - Hero Section */
+    .hero-section {
+        min-height: 90vh; /* Make the hero section tall */
         display: flex;
         flex-direction: column;
-        gap: 20px;
         justify-content: center;
         align-items: center;
+        padding: 40px 20px;
         text-align: center;
-        z-index: 1;
     }
     .established {
         font-size: 0.85rem;
         color: #a0a0a0;
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
     }
     h1 {
-        font-size: 3rem;
+        font-size: clamp(2rem, 5vw, 4rem);
         font-weight: 800;
         line-height: 1.2;
         background: linear-gradient(90deg, #9b59b6, #e74c3c);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         animation: glow 3s ease-in-out infinite alternate;
+        margin-bottom: 20px;
     }
     @keyframes glow {
         0% { filter: blur(0px); }
         50% { filter: blur(1px); }
         100% { filter: blur(0px); }
     }
-    p {
+    .hero-section p {
         font-size: 1.2rem;
         max-width: 600px;
         color: #c0c0c0;
     }
 
+    /* FAQ Section */
+    .faq-section {
+        background: #1a1a2e; /* Slightly lighter dark background for contrast */
+        padding: 80px 40px;
+        text-align: left;
+    }
+    .faq-section h2 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        color: #f5f5f5;
+    }
+    .faq-section h3 {
+        font-size: 1rem;
+        color: #a0a0a0;
+        margin-bottom: 40px;
+    }
+    .faq-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .faq-item {
+        background: #0c0c1a; /* Darkest background for card */
+        padding: 30px;
+        border-radius: 15px;
+        border-left: 5px solid transparent;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth modern animation */
+        cursor: pointer;
+        min-height: 120px; /* Uniform height for question/collapsed state */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+    }
+    .faq-item:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(155, 89, 182, 0.3);
+        border-left: 5px solid #9b59b6;
+    }
+    .faq-item strong {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #f5f5f5;
+        margin-bottom: 10px;
+        display: block;
+        padding-right: 30px; /* Space for the arrow */
+    }
+    .faq-item p {
+        font-size: 0.95rem;
+        color: #c0c0c0;
+        line-height: 1.4;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
+        margin-top: 0;
+    }
+    .faq-item.active p {
+        max-height: 200px; /* Enough to show content */
+        margin-top: 15px;
+    }
+    .arrow {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        font-size: 1.2rem;
+        color: #9b59b6;
+        transition: transform 0.3s ease;
+    }
+    .faq-item.active .arrow {
+        transform: rotate(90deg);
+    }
+
     /* Footer */
     footer {
-        position: absolute;
-        bottom: 20px;
+        padding: 20px;
         font-size: 0.9rem;
         color: #777;
+        background: #0c0c1a;
+        text-align: center;
     }
 
     /* Contact Modal */
@@ -117,7 +195,7 @@
         visibility: hidden;
         opacity: 0;
         transition: opacity 0.3s ease;
-        z-index: 10;
+        z-index: 100; /* High z-index */
     }
     .modal.active {
         visibility: visible;
@@ -135,14 +213,21 @@
     }
     .modal-content h2 {
         margin-bottom: 20px;
+        color: #9b59b6;
     }
     .modal-content input, .modal-content textarea {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         margin-bottom: 15px;
         border-radius: 8px;
-        border: none;
+        border: 1px solid #3a0d6d;
+        background: #0c0c1a;
+        color: #f5f5f5;
         outline: none;
+        transition: border-color 0.3s ease;
+    }
+    .modal-content input:focus, .modal-content textarea:focus {
+        border-color: #e74c3c;
     }
     .modal-content button {
         padding: 10px 20px;
@@ -162,7 +247,7 @@
         top: 15px;
         right: 15px;
         cursor: pointer;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         font-weight: bold;
         color: #f5f5f5;
     }
@@ -171,21 +256,65 @@
 <body>
 
 <header>
-    <button id="musicBtn">🎵 Music</button>
-    <a id="contactBtn">Contact</a>
+    <div class="logo">
+        <img src="astral-transparent.png" alt="Astral Collective Logo">
+    </div>
+    <button id="contactBtn">Contact</button>
 </header>
 
-<main>
+<div class="hero-section">
     <div class="established">Established 2025</div>
     <h1>Transforming creative sounds into opportunities</h1>
     <p>Astral Collective discovers musical talent and builds pathways for artists and brands to shine in new ways.</p>
-</main>
+</div>
+
+<section class="faq-section" id="faq">
+    <h2>FAQ</h2>
+    <h3>Frequently Asked Questions</h3>
+    
+    <div class="faq-grid">
+        <div class="faq-item">
+            <strong>Do you accept demos from unsigned artists?</strong>
+            <span class="arrow">&gt;</span>
+            <p>Yes! We are always looking for new talent. Please submit your demo through a link to your portfolio or tracks. We listen to everything, but due to volume, we only respond to artists we are interested in moving forward with. Keep creating!</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>What support do you offer your artists?</strong>
+            <span class="arrow">&gt;</span>
+            <p>We provide a full-spectrum of support including marketing, mentorship, licensing opportunities, and brand partnerships to help you focus on your craft and build a sustainable career.</p>
+        </div>
+        
+        <div class="faq-item">
+            <strong>What is Astral Collective?</strong>
+            <span class="arrow">&gt;</span>
+            <p>Astral Collective is a music discovery and artist development agency dedicated to finding unique and untapped musical talent and connecting them with impactful opportunities, including brand collaborations.</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>Do you handle music licensing?</strong>
+            <span class="arrow">&gt;</span>
+            <p>Absolutely. We manage synchronization and master use licensing for our artists' catalogs, connecting their tracks to film, television, games, and advertising projects worldwide. This is a core part of the value we bring.</p>
+        </div>
+        
+        <div class="faq-item">
+            <strong>How do brand partnerships work?</strong>
+            <span class="arrow">&gt;</span>
+            <p>We actively seek out authentic brand alignment opportunities that match your artistic vision and values. We handle the entire process—from pitching and negotiation to campaign execution—ensuring the deals are genuinely beneficial to your career and not just a quick cash grab.</p>
+        </div>
+        
+        <div class="faq-item">
+            <strong>Do I maintain ownership of my masters?</strong>
+            <span class="arrow">&gt;</span>
+            <p>Maintaining artist creative control is key. While deal structures vary, we prioritize our artists retaining the maximum amount of **ownership of their masters and publishing** possible. Our focus is on partnership, not acquisition.</p>
+        </div>
+    </div>
+</section>
 
 <footer>
     © 2025 Astral Collective LLC.
 </footer>
 
-<!-- Contact Modal -->
 <div class="modal" id="contactModal">
     <div class="modal-content">
         <span class="close" id="closeModal">&times;</span>
@@ -199,16 +328,12 @@
     </div>
 </div>
 
-<!-- Background Audio -->
-<audio id="bgAudio" loop>
-    <source src="your-audio-file.mp3" type="audio/mpeg">
-</audio>
-
 <script>
     // Contact modal toggle
     const contactBtn = document.getElementById('contactBtn');
     const contactModal = document.getElementById('contactModal');
     const closeModal = document.getElementById('closeModal');
+    const faqItems = document.querySelectorAll('.faq-item');
 
     contactBtn.addEventListener('click', () => {
         contactModal.classList.add('active');
@@ -224,24 +349,25 @@
         }
     });
 
-    // Music toggle
-    const musicBtn = document.getElementById('musicBtn');
-    const bgAudio = document.getElementById('bgAudio');
-
-    musicBtn.addEventListener('click', () => {
-        if(bgAudio.paused){
-            bgAudio.play();
-            musicBtn.textContent = '🔊 Music On';
-        } else {
-            bgAudio.pause();
-            musicBtn.textContent = '🎵 Music';
-        }
+    // FAQ item toggle
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Close all other active items
+            faqItems.forEach(otherItem => {
+                // If it's not the clicked item and it's currently active, close it
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            // Toggle the clicked item
+            item.classList.toggle('active');
+        });
     });
 
     // Optional: handle form submit
     document.getElementById('contactForm').addEventListener('submit', function(e){
         e.preventDefault();
-        alert('Thank you! Your message has been sent.');
+        alert('Bet. Your message has been sent. We\'ll hit you back soon!');
         contactModal.classList.remove('active');
         this.reset();
     });
