@@ -14,14 +14,47 @@
     }
     body {
         font-family: 'Inter', sans-serif;
-        background: linear-gradient(135deg, #0c0c1a, #3a0d6d); 
+        /* BACKGROUND REMOVED - Video handles the background */
+        background: transparent; 
         color: #f5f5f5;
         min-height: 100vh;
         text-align: center;
         overflow-x: hidden;
+        /* Padding top remains for fixed header space */
         padding-top: 100px;
         transition: background-color 0.5s ease;
     }
+
+    /* 1. Video Background Styling (New!) */
+    #bgVideo {
+        position: fixed; /* Lock it in place */
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100; /* Pushes it way behind all content */
+        transform: translate(-50%, -50%);
+        object-fit: cover; /* Ensures video fills screen without stretching */
+        filter: brightness(0.7); /* Darken the video for better text contrast */
+    }
+
+    /* 2. Frosted Glass Effect (New Class!) */
+    .frosted-glass {
+        /* Semi-transparent dark background */
+        background: rgba(12, 12, 26, 0.75); 
+        /* THE FROSTED GLASS EFFECT */
+        backdrop-filter: blur(10px); 
+        border-radius: 15px; 
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        margin: 20px auto;
+        max-width: 1200px; /* Constrain the width for better framing */
+        padding: 40px 20px;
+        transition: all 0.3s ease;
+    }
+
+    /* Header (Fixed) */
     header {
         position: fixed;
         top: 0;
@@ -31,6 +64,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 15px 40px;
+        /* Header already has a blur, keeping that for consistency */
         background: rgba(12, 12, 26, 0.9);
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
@@ -57,13 +91,14 @@
         color: #fff;
         transform: translateY(-2px);
     }
+    /* ... existing styles for hero-section, h1, established, etc. ... */
     .hero-section {
         min-height: 90vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 40px 20px;
+        /* Padding moved to frosted-glass class */
         text-align: center;
     }
     .established {
@@ -93,29 +128,25 @@
         max-width: 600px;
         color: #c0c0c0;
     }
+    /* FAQ Section */
     .faq-section {
-        background: #1a1a2e;
-        padding: 80px 40px;
+        /* Background removed and padding adjusted, using frosted-glass wrapper */
+        background: transparent;
+        padding: 80px 0; /* Adjusted padding to center the frosted box */
         text-align: left;
     }
-    .faq-section h2 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 10px;
-        color: #f5f5f5;
-    }
-    .faq-section h3 {
-        font-size: 1rem;
-        color: #a0a0a0;
-        margin-bottom: 40px;
+    /* Adjust FAQ item styles to look good inside the frosted box */
+    .faq-section h2, .faq-section h3 {
+        text-align: center;
     }
     .faq-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 20px;
+        padding: 0 20px; /* Add internal padding for the grid */
     }
     .faq-item {
-        background: #0c0c1a;
+        background: rgba(12, 12, 26, 0.5); /* Use more transparent background for items */
         padding: 30px;
         border-radius: 15px;
         border-left: 5px solid transparent;
@@ -168,9 +199,11 @@
         padding: 20px;
         font-size: 0.9rem;
         color: #777;
-        background: #0c0c1a;
+        /* Ensure footer is dark and not transparent */
+        background: #0c0c1a; 
         text-align: center;
     }
+    /* Modal styles remain the same */
     .modal {
         position: fixed;
         top: 0;
@@ -225,6 +258,10 @@
 </head>
 <body>
 
+<video autoplay muted loop id="bgVideo" poster="galaxy-poster.jpg">
+    <source src="galaxy.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 <header>
     <div class="logo">
         <img src="astral-transparent.png" alt="Astral Collective Logo">
@@ -233,50 +270,54 @@
 </header>
 
 <div class="hero-section">
-    <div class="established">Established 2025</div>
-    <h1>Transforming creative sounds into opportunities</h1>
-    <p>Astral Collective discovers musical talent and builds pathways for artists and brands to shine in new ways.</p>
+    <div class="frosted-glass">
+        <div class="established">Established 2025</div>
+        <h1>Transforming creative sounds into opportunities</h1>
+        <p>Astral Collective discovers musical talent and builds pathways for artists and brands to shine in new ways.</p>
+    </div>
 </div>
 
 <section class="faq-section" id="faq">
-    <h2>FAQ</h2>
-    <h3>Frequently Asked Questions</h3>
-    
-    <div class="faq-grid">
-        <div class="faq-item">
-            <strong>Do you accept demos from unsigned artists?</strong>
-            <span class="arrow">&gt;</span>
-            <p>Yes! We are always looking for new talent. Please submit your demo through a link to your portfolio or tracks. We listen to everything, but due to volume, we only respond to artists we select to move forward with.</p>
-        </div>
+    <div class="frosted-glass">
+        <h2>FAQ</h2>
+        <h3>Frequently Asked Questions</h3>
+        
+        <div class="faq-grid">
+            <div class="faq-item">
+                <strong>Do you accept demos from unsigned artists?</strong>
+                <span class="arrow">&gt;</span>
+                <p>Yes! We are always looking for new talent. Please submit your demo through a link to your portfolio or tracks. We listen to everything, but due to volume, we only respond to artists we select to move forward with.</p>
+            </div>
 
-        <div class="faq-item">
-            <strong>What support do you offer your artists?</strong>
-            <span class="arrow">&gt;</span>
-            <p>We provide a full-spectrum of support including marketing, mentorship, licensing opportunities, and brand partnerships to help you focus on your craft and build a sustainable career.</p>
-        </div>
-        
-        <div class="faq-item">
-            <strong>What is Astral Collective?</strong>
-            <span class="arrow">&gt;</span>
-            <p>Astral Collective is a music discovery and artist development agency dedicated to finding unique and untapped musical talent and connecting them with impactful opportunities, including placements with brands and studios.</p>
-        </div>
+            <div class="faq-item">
+                <strong>What support do you offer your artists?</strong>
+                <span class="arrow">&gt;</span>
+                <p>We provide a full-spectrum of support including marketing, mentorship, licensing opportunities, and brand partnerships to help you focus on your craft and build a sustainable career.</p>
+            </div>
+            
+            <div class="faq-item">
+                <strong>What is Astral Collective?</strong>
+                <span class="arrow">&gt;</span>
+                <p>Astral Collective is a music discovery and artist development agency dedicated to finding unique and untapped musical talent and connecting them with impactful opportunities, including placements with brands and studios.</p>
+            </div>
 
-        <div class="faq-item">
-            <strong>Do you handle music licensing?</strong>
-            <span class="arrow">&gt;</span>
-            <p>Absolutely. We manage synchronization and master use licensing for our artists' catalogs, connecting their tracks to film, television, games, and advertising projects worldwide. This is a key part of our service.</p>
-        </div>
-        
-        <div class="faq-item">
-            <strong>How do brand partnerships work?</strong>
-            <span class="arrow">&gt;</span>
-            <p>We actively seek out authentic brand alignment opportunities that match your artistic vision and values. We handle the entire process—from pitching and negotiation to campaign execution and reporting.</p>
-        </div>
-        
-        <div class="faq-item">
-            <strong>Do I maintain ownership of my masters?</strong>
-            <span class="arrow">&gt;</span>
-            <p>Maintaining artist creative control is key. While deal structures vary, we prioritize our artists retaining the maximum amount of <strong>ownership of their masters and publishing</strong> possible.</p>
+            <div class="faq-item">
+                <strong>Do you handle music licensing?</strong>
+                <span class="arrow">&gt;</span>
+                <p>Absolutely. We manage synchronization and master use licensing for our artists' catalogs, connecting their tracks to film, television, games, and advertising projects worldwide. This is a key part of our service.</p>
+            </div>
+            
+            <div class="faq-item">
+                <strong>How do brand partnerships work?</strong>
+                <span class="arrow">&gt;</span>
+                <p>We actively seek out authentic brand alignment opportunities that match your artistic vision and values. We handle the entire process—from pitching and negotiation to campaign execution and reporting.</p>
+            </div>
+            
+            <div class="faq-item">
+                <strong>Do I maintain ownership of my masters?</strong>
+                <span class="arrow">&gt;</span>
+                <p>Maintaining artist creative control is key. While deal structures vary, we prioritize our artists retaining the maximum amount of <strong>ownership of their masters and publishing</strong> possible.</p>
+            </div>
         </div>
     </div>
 </section>
