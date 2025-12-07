@@ -21,7 +21,7 @@
         overflow-x: hidden;
         padding-top: 80px; 
         transition: background-color 0.5s ease;
-        position: relative; /* Needed for the ::after pseudo-element */
+        position: relative; 
     }
 
     /* NEW: Frosted Glass Layer Over Video */
@@ -32,9 +32,9 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.4); /* Dark overlay */
-        backdrop-filter: blur(4px); /* Subtle blur for the frosted effect */
-        z-index: -99; /* Sits over the video (-100) but under the content */
+        background: rgba(0, 0, 0, 0.4); 
+        backdrop-filter: blur(4px); 
+        z-index: -99; 
     }
 
     /* 1. Video Background Styling */
@@ -49,15 +49,12 @@
         z-index: -100; 
         transform: translate(-50%, -50%);
         object-fit: cover; 
-        /* Decreased brightness slightly to compensate for the blur overlay */
         filter: brightness(0.6); 
     }
 
-    /* 2. Frosted Glass Effect (LESS OPAQUE TEXT BACKGROUND) */
+    /* 2. Frosted Glass Effect */
     .frosted-glass {
-        /* CHANGED OPACITY: 90% (0.9) down to 70% (0.7) */
         background: rgba(12, 12, 26, 0.7); 
-        /* Blur intensity remains high for the text box */
         backdrop-filter: blur(15px); 
         border-radius: 15px; 
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
@@ -77,14 +74,18 @@
         justify-content: space-between;
         align-items: center;
         padding: 10px 40px; 
-        background: rgba(12, 12, 26, 0.9);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        /* CHANGED: ALMOST FULLY TRANSPARENT BACKGROUND */
+        background: rgba(12, 12, 26, 0.1); 
+        /* REDUCED BLUR */
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Reduced shadow intensity */
         z-index: 10;
         transition: transform 0.3s ease;
     }
     .logo img {
-        height: 100px; 
+        height: 55px; 
+        /* NEW: ADJUSTED MARGIN TO CENTER THE TALLER LOGO */
+        margin-top: 2px;
         transition: transform 0.3s ease;
     }
     header a, #contactBtn {
@@ -154,7 +155,6 @@
         padding: 0 20px;
     }
     .faq-item {
-        /* FAQ items also use less opacity */
         background: rgba(12, 12, 26, 0.5);
         padding: 30px;
         border-radius: 15px;
@@ -209,7 +209,7 @@
         font-size: 0.9rem;
         color: #777;
         background: #0c0c1a; 
-        z-index: 1; /* Ensure footer is above the new frosted overlay */
+        z-index: 1; 
         text-align: center;
     }
     /* Modal styles remain the same */
